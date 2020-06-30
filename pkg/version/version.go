@@ -2,7 +2,7 @@ package version
 
 import (
 	"fmt"
-	"github.com/Benbentwo/go-bin-generic/pkg/cmd/common"
+	"github.com/Benbentwo/ubuntu-server-util/pkg/cmd/common"
 	"github.com/Benbentwo/utils/util"
 	"github.com/blang/semver"
 	"github.com/pkg/errors"
