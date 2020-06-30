@@ -29,7 +29,7 @@ jobs:
       - name: Make local Binaries
         run: |
           export VERSION=${{steps.increment-semver-patch.outputs.version}}
-          make all
+          make linux
       #       Tag = <BranchName (Tag Safe)>-<Short Commit Hash>
       - run: |
           tag=${{ steps.increment-semver-patch.outputs.version }}
