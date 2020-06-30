@@ -1,6 +1,0 @@
-FROM centos:7
-LABEL author="Very Good Security"
-
-COPY build/usu-linux-amd64 /usr/local/bin/usu
-
-ENTRYPOINT ["tail", "-f", "/dev/null"]
