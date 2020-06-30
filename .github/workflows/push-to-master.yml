@@ -1,0 +1,54 @@
+name: Push to Master
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-bins-image-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.14.2'
+      - name: Pull request merged
+        id: get-release-type
+        run: |
+          echo "##[set-output name=release-type;]patch"
+          echo "##[set-output name=release-command;]-p"
+
+      # https://github.com/Benbentwo/increment-semver
+      - name: Increment Step Patch
+        id: increment-semver-patch
+        uses: Benbentwo/increment-semver@master
+        with:
+          version-level: "${{steps.get-release-type.outputs.release-command}}"
+
+      - name: Make local Binaries
+        run: |
+          export VERSION=${{steps.increment-semver-patch.outputs.version}}
+          make linux
+      #       Tag = <BranchName (Tag Safe)>-<Short Commit Hash>
+
+      # https://github.com/marketplace/actions/create-a-release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{steps.increment-semver-patch.outputs.version}}
+          release_name: ${{steps.increment-semver-patch.outputs.version}}
+          draft: false
+          prerelease: false
+
+      # https://github.com/svenstaro/upload-release-action
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/*
+          tag: ${{steps.increment-semver-patch.outputs.version}}
+          file_glob: true
