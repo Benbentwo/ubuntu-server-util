@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/Benbentwo/ubuntu-server-util/pkg/cmd/common"
+	"github.com/Benbentwo/ubuntu-server-util/pkg/cmd/info"
 	"github.com/Benbentwo/ubuntu-server-util/pkg/version"
 	"github.com/spf13/viper"
 	"io"
@@ -37,7 +38,7 @@ func NewMainCmd(in terminal.FileReader, out terminal.FileWriter, err io.Writer, 
 
 	// Section to add commands to:
 	cmd.AddCommand(version.NewCmdVersion(commonOpts))
-
+	cmd.AddCommand(info.NewCmdInfo(commonOpts))
 	return cmd
 }
 

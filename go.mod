@@ -6,6 +6,7 @@ require (
 	github.com/Benbentwo/utils v0.0.0-20200514144010-dbc9c4c290f9
 	github.com/TV4/logrus-stackdriver-formatter v0.1.0 // indirect
 	github.com/blang/semver v3.5.1+incompatible
+	github.com/digitalocean/go-smbios v0.0.0-20180907143718-390a4f403a8e
 	github.com/fatih/color v1.9.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-errors/errors v1.1.1 // indirect
